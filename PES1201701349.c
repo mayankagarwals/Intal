@@ -536,3 +536,61 @@ int intal_search(char **arr, int n, char* key)
     }
     return -1;
 }
+
+
+// Returns the offset of the first occurrence of the key intal in the SORTED array.
+// Returns -1 if the key is not found.
+// The array is sorted in nondecreasing order.
+// 1 <= n <= 1000
+// The implementation should be a O(log n) algorithm.
+int intal_binsearch(char **arr, int n, char* key)
+{
+    //binary search of the form FFFFTTTT. 
+    int low = 0, high = n-1;
+    while(low < high)
+    {
+        int mid = low + (high - low)/2;
+        if(intal_compare(arr[mid], key) != -1)
+            high = mid;
+        else
+            low = mid + 1;
+    }
+    //this will give lower bound, check if lower bound is
+    //same as key
+    if(intal_compare(arr[low], key) != 0)
+        return -1;
+    return low;
+}
+
+
+static int partition(char** arr, int start, int end)
+{
+    //Lomuto partition
+    char* pivot = arr[end];
+    int i = start;
+    for(int j = start; j < end; ++j)
+    {
+        if(intal_compare(arr[j], pivot) == -1)
+        {
+            swap_strings(&arr[i], &arr[j]);
+            ++i;
+        }
+    }
+    swap_strings(&arr[i], &arr[end]);
+    return i;
+}
+
+static void intal_sort_util(char** arr, int start, int end)
+{
+    if(start < end)
+    {
+        int p = partition(arr, start, end);
+        intal_sort_util(arr, start, p - 1);
+        intal_sort_util(arr, p+1, end);
+    }
+}
+
+void intal_sort(char **arr, int n)
+{
+    intal_sort_util(arr, 0, n-1);
+}
