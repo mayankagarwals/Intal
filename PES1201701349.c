@@ -94,3 +94,37 @@ char* intal_add(char* intal1, char* intal2)
     return res;
 
 }
+
+
+
+int intal_compare(char* intal1, char* intal2)
+{
+/*
+First, compare the length of both strings. If there is a difference,
+return the one which is larger.
+If equal, start iterating from most significant digit. If there is a
+difference, return the one possessing lower digit
+If you have iterated through whole string, return 0 as they have to be 
+equal
+*/
+
+    int size1 = strlen(intal1);
+    int size2 = strlen(intal2);
+
+    if(size1 > size2)
+        return 1;
+    if(size1 < size2)
+        return -1;
+    int i = 0;
+    while(intal1[i])
+    {
+        if(intal1[i] > intal2[i])
+            return 1;
+        if(intal1[i] < intal2[i])
+            return -1;
+        ++i;
+    }
+    return 0;
+
+}
+
