@@ -497,3 +497,42 @@ char* intal_factorial(unsigned int n)
     }
     return res;
 }
+
+int intal_max(char **arr, int n)
+{
+    int best = 0;
+    for(int i = 1; i < n; ++i)
+    {
+        if(intal_compare(arr[i], arr[best]) == 1)
+            best = i;
+        //since we want smallest offset, only change if you find something
+        //better
+    }
+    return best;
+}
+
+int intal_min(char **arr, int n)
+{
+    int best = 0;
+    for(int i = 1; i < n; ++i)
+    {
+        if(intal_compare(arr[i], arr[best]) == -1)
+            best = i;
+        //since we want smallest offset, only change if you find something
+        //better
+    }
+    return best;
+}
+
+// Returns the offset of the first occurrence of the key intal in the array.
+// Returns -1 if the key is not found.
+// 1 <= n <= 1000
+int intal_search(char **arr, int n, char* key)
+{
+    for(int i = 0; i < n; ++i)
+    {
+        if(intal_compare(arr[i], key) == 0)
+            return i;
+    }
+    return -1;
+}

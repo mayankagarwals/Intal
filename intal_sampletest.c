@@ -234,6 +234,9 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
+#endif
+
+
 	index1 = intal_max(a, 10);
 	if(6 == index1) {
 		printf("Test intal_max PASSED\n");
@@ -255,6 +258,7 @@ int main(int argc, char const *argv[]) {
 		printf("Test intal_search FAILED.\nYour answer: %d\nExpected answer: %d\n", index1, 6);
 	}
 
+#if 0
 	intal_sort(a, 10);
 	index1 = intal_binsearch(a, 10, "3");
 	if(1 == index1) {
