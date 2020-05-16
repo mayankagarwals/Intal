@@ -208,7 +208,7 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
-#if 0
+
 
 	result1 = intal_bincoeff(10, 8);
 	if(!result1) {
@@ -233,8 +233,6 @@ int main(int argc, char const *argv[]) {
 		}
 		free(result1);
 	}
-
-#endif
 
 
 	index1 = intal_max(a, 10);

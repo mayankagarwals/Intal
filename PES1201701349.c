@@ -7,6 +7,12 @@ static int max(int a, int b)    //int suffices as atmost length is 1000
     return (a>b)?a:b;
 }
 
+static int min(int a, int b)    //int suffices as atmost length is 1000
+{
+    return (a<b)?a:b;
+}
+
+
 static void reverse_string(char* intal)
 {
     int n = strlen(intal);
@@ -593,4 +599,35 @@ static void intal_sort_util(char** arr, int start, int end)
 void intal_sort(char **arr, int n)
 {
     intal_sort_util(arr, 0, n-1);
+}
+
+char* intal_bincoeff(unsigned int n, unsigned int k)
+{
+    k = ((n-k) < k)?(n-k):k;
+
+	char **dp = (char**) malloc((k+1) * sizeof(char*));
+    //assign all to zero
+	for(int i = 0; i <= k; i++) 
+    {
+		dp[i] = (char*) malloc(1001 * sizeof(char));
+        dp[i][0] = '0';
+        dp[i][1] = '\0';
+	}
+	dp[0][0] = '1';
+
+    for(int i = 1; i <= n; ++i)
+    {
+        for(int j = min(i, k); j > 0; --j)
+        {
+            char* prev = dp[j];
+            dp[j] = intal_add(dp[j], dp[j-1]);
+            free(prev);
+        }
+    }
+
+    for(int i = 0; i < k; ++i)
+        free(dp[i]);
+
+    return dp[k];
+
 }
