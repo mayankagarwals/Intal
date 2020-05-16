@@ -10,6 +10,8 @@
 #include "Tests/Suite_multiply.c"
 #include "Tests/Suite_mod.c"
 #include "Tests/Suite_pow.c"
+#include "Tests/Suite_gcd.c"
+
 
 int main()
 {
@@ -112,6 +114,23 @@ int main()
         NULL == CU_add_test(pSuite, "100 ^ 0", suite_pow_test_2) ||
         NULL == CU_add_test(pSuite, "4 ^ 8", suite_pow_test_3) ||
         NULL == CU_add_test(pSuite, "2342 ^ 2324", suite_pow_test_4)) 
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+
+
+    pSuite = CU_add_suite("Suite_gcd", NULL, NULL);
+    if(NULL == pSuite)
+    {
+      CU_cleanup_registry();
+      return CU_get_error();
+    }
+
+   if (NULL == CU_add_test(pSuite, "0, 0", suite_gcd_test_1) ||
+        NULL == CU_add_test(pSuite, "93473894, 9237432947", suite_gcd_test_2) ||
+        NULL == CU_add_test(pSuite, "0, 124324987", suite_gcd_test_3) ||
+        NULL == CU_add_test(pSuite, "124324987 , 0", suite_gcd_test_4)) 
         {
             CU_cleanup_registry();
             return CU_get_error();
