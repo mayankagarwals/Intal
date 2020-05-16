@@ -37,7 +37,7 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
-	#if 0
+	
 	index1 = intal_compare(a[0], a[1]);
 	if(-1 == index1) {
 		printf("Test intal_compare PASSED\n");
@@ -57,6 +57,7 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
+	
 	result1 = intal_multiply(a[8], a[5]);
 	if(!result1) {
 		printf("Test intal_multiply FAILED.\n");
@@ -68,7 +69,7 @@ int main(int argc, char const *argv[]) {
 		}
 		free(result1);
 	}
-
+#if 0
 	result1 = intal_mod(a[3], a[4]);
 	if(!result1) {
 		printf("Test intal_mod FAILED.\n");

@@ -214,3 +214,62 @@ char* intal_diff(char* intal1, char* intal2)
     return res;
     
 }
+
+char* intal_multiply(char* intal1, char* intal2)
+{
+
+/*
+    O(n**2) implementation: For every digit from right to left in
+    intal1, multiply with intal2. Sum all these to find end answer
+    To save space, we do cumulative sum, that is for every iteration
+    sum with answer. We store in reverse manner to avoid waste of
+    space if product is smaller.
+
+
+*/
+
+    int size1 = strlen(intal1);
+    int size2 = strlen(intal2);
+
+    int max_res_size = size1 + size2;   
+    //maximum product of two numbers can atmost have m+n digits
+    char* res = (char*)malloc((max_res_size + 1)*sizeof(char));
+    // +1 for the null character
+
+    for(int i = 0; i < max_res_size; ++i)
+        res[i] = '0';
+    //initialize with 0;
+
+    int left_shift_outer = 0;
+    int left_shift_inner;
+    int i = size1-1;
+    for(; i >= 0; --i)
+    {
+        left_shift_inner = 0;
+        int j = size2 - 1;
+        int carry = 0;
+        for(; j >= 0; --j)
+        {
+            int sum = (intal1[i] - '0')*(intal2[j] - '0') + carry +
+             (res[left_shift_outer + left_shift_inner] - '0');
+            carry = sum / 10;
+            res[left_shift_outer + left_shift_inner] = (sum % 10) + '0';
+            left_shift_inner += 1;
+        }
+
+        if(carry)
+            res[left_shift_outer + left_shift_inner] = carry + '0';
+        left_shift_outer += 1;
+    }
+
+    i = left_shift_inner + left_shift_outer - 1;
+    //at end left_shift_inner + left_shift_outer points to one beyond res
+    while(i > 0 && res[i] == '0')
+        --i;
+    //remove preceeding zeros
+
+    res[i+1] = '\0';
+
+    reverse_string(res);
+    return res;
+}
