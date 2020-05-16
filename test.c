@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #include "Tests/Suite_add.c"
+#include "Tests/Suite_Compare.c"
 
 int main()
 {
@@ -31,6 +32,21 @@ int main()
             return CU_get_error();
         }
 
+    pSuite = CU_add_suite("Suite_Compare", NULL, NULL);
+    if(NULL == pSuite)
+    {
+      CU_cleanup_registry();
+      return CU_get_error();
+    }
+
+   if (NULL == CU_add_test(pSuite, "comparing zeros", suite_compare_test_1) ||
+        NULL == CU_add_test(pSuite, "comparing 9999999 to 1", suite_compare_test_2) ||
+        NULL == CU_add_test(pSuite, "comparing 1 to 1999999", suite_compare_test_3) ||
+        NULL == CU_add_test(pSuite, "comparing 1999999 to 1999999", suite_compare_test_4)) 
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
 
    CU_basic_set_mode(CU_BRM_VERBOSE);
    CU_basic_run_tests();
