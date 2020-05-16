@@ -12,6 +12,7 @@
 #include "Tests/Suite_pow.c"
 #include "Tests/Suite_gcd.c"
 #include "Tests/Suite_fibonacci.c"
+#include "Tests/Suite_factorial.c"
 
 
 
@@ -149,6 +150,22 @@ int main()
         NULL == CU_add_test(pSuite, "fibonacci(1)", suite_fibonacci_test_2) ||
         NULL == CU_add_test(pSuite, "fibonacci(2)", suite_fibonacci_test_3) ||
         NULL == CU_add_test(pSuite, "fibonacci(1000)", suite_fibonacci_test_4)) 
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+
+    pSuite = CU_add_suite("Suite_factorial", NULL, NULL);
+    if(NULL == pSuite)
+    {
+      CU_cleanup_registry();
+      return CU_get_error();
+    }
+
+   if (NULL == CU_add_test(pSuite, "factorial(0)", suite_factorial_test_1) ||
+        NULL == CU_add_test(pSuite, "factorial(1)", suite_factorial_test_2) ||
+        NULL == CU_add_test(pSuite, "factorial(2)", suite_factorial_test_3) ||
+        NULL == CU_add_test(pSuite, "factorial(100)", suite_factorial_test_4)) 
         {
             CU_cleanup_registry();
             return CU_get_error();
