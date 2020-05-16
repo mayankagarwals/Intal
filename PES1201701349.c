@@ -274,6 +274,98 @@ char* intal_multiply(char* intal1, char* intal2)
     return res;
 }
 
+static char* intal_div(char* intal1, char* intal2)
+{
+
+    if(0 == strcmp(intal2, "0"))    //division by zero
+        exit(1);
+
+    int comp = intal_compare(intal1, intal2);
+    if(comp == -1)      //smaller / bigger
+    {
+        char* zero = (char*)malloc(2*sizeof(char));
+        zero[0] = '0';
+        zero[1] = '\0';
+        return zero;
+    }
+
+    int i = 0;
+    char* temp = (char*)malloc(2*sizeof(char));
+    temp[0] = intal1[i];
+    temp[1] = '\0';
+
+    int size1 = strlen(intal1);
+
+    while(intal_compare(temp, intal2) == -1)
+    {
+        int n = strlen(temp);
+        temp = realloc(temp, n + 2);
+        //1 for null character and 1 for new data;
+        ++i;
+        temp[n] = intal1[i];
+        temp[n+1] = '\0';
+    }
+
+    char* res = (char*)malloc((size1 + 1)*sizeof(char));
+    // +1 for null character
+    //quotient can atmost have same digits as dividend
+    int res_index = 0;
+
+    while(i < size1)
+    {
+        int quotient = 0;
+        while(intal_compare(temp, intal2) != -1)
+        {
+            char* prev = temp;
+            temp = intal_diff(temp, intal2);
+            free(prev);
+            ++quotient;
+        }
+        //if intal_compare directly returns 0, corresponding quotient is 0.
+
+        res[res_index] = quotient + '0';
+        ++res_index;
+
+
+        int n = strlen(temp);
+
+        if((1 == n) && (temp[0] == '0'))
+        {
+            free(temp);
+            temp = (char*)malloc(sizeof(char));
+            temp[0] = '\0';
+            n = 0;
+        }
+        //we do not want leading zeros
+
+
+            ++i;
+            temp = realloc(temp, n + 2);
+            //1 for null character and 1 for new data;
+            temp[n] = intal1[i];
+            temp[n+1] = '\0';
+        
+        
+
+    }
+
+    res[res_index] = '\0';
+    return res;
+
+
+}
+
+char* intal_mod(char* intal1, char* intal2)
+{
+    char* quotient = intal_div(intal1, intal2);
+    char* prod = intal_multiply(quotient , intal2);
+    char* remainder = intal_diff(intal1, prod);
+    free(quotient);
+    free(prod);
+    return remainder;
+}
+
+
 char* intal_pow(char* intal1, unsigned int n)
 {
     //we need copies to work with

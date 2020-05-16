@@ -70,7 +70,6 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
-#if 0
 
 	result1 = intal_mod(a[3], a[4]);
 	if(!result1) {
@@ -120,7 +119,7 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
-#endif
+
 
 	result1 = intal_pow("10", 999);
 	if(!result1) {
