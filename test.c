@@ -8,6 +8,7 @@
 #include "Tests/Suite_Compare.c"
 #include "Tests/Suite_diff.c"
 #include "Tests/Suite_multiply.c"
+#include "Tests/Suite_mod.c"
 #include "Tests/Suite_pow.c"
 
 int main()
@@ -82,6 +83,23 @@ int main()
             CU_cleanup_registry();
             return CU_get_error();
         }
+
+    pSuite = CU_add_suite("Suite_mod", NULL, NULL);
+    if(NULL == pSuite)
+    {
+      CU_cleanup_registry();
+      return CU_get_error();
+    }
+
+   if (NULL == CU_add_test(pSuite, "9999 % 1", suite_mod_test_1) ||
+        NULL == CU_add_test(pSuite, "32490 % 232", suite_mod_test_2) ||
+        NULL == CU_add_test(pSuite, "0 % 8", suite_mod_test_3) ||
+        NULL == CU_add_test(pSuite, "7 % 7", suite_mod_test_4)) 
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+
 
     pSuite = CU_add_suite("Suite_pow", NULL, NULL);
     if(NULL == pSuite)
