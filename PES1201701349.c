@@ -392,3 +392,29 @@ char* intal_pow(char* intal1, unsigned int n)
     free(num1);
     return res;
 }
+
+char* intal_gcd(char* intal1, char* intal2)
+{
+    //we need copies to work with
+    char* num1 = (char*)malloc((strlen(intal1) + 1)* sizeof(char));
+    char* num2 = (char*)malloc((strlen(intal2) + 1)* sizeof(char));
+    strcpy(num1, intal1);
+    strcpy(num2, intal2);    
+
+    if(0 == strcmp(num1, "0"))
+        return num2;
+    if(0 == strcmp(num2, "0"))
+        return num1;
+    while(1)
+    {
+        if(0 == strcmp(num1, "0"))
+            return num2;
+        char* prev = num1;
+        num1 = intal_mod(num2, num1);
+        free(num2);
+        num2 = prev;
+        
+        
+    }
+
+}
