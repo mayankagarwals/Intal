@@ -418,3 +418,34 @@ char* intal_gcd(char* intal1, char* intal2)
     }
 
 }
+
+char* intal_fibonacci(unsigned int n)
+{
+    char* zero = (char*)malloc(2*sizeof(char));
+    zero[0] = '0';
+    zero[1] = '\0';
+    
+    if(n == 0)
+        return zero;
+
+    char* one = (char*)malloc(2*sizeof(char));
+    one[0] = '1';
+    one[1] = '\0';
+
+    if(n == 1)
+        return one;
+
+    char* a = zero;
+    char* b = one;
+    char* c;
+    for(unsigned int i = 2; i <= n; ++i)
+    {
+        c = intal_add(a, b);
+        free(a);
+        a = b;
+        b = c;
+    }
+    free(a);
+    return c;
+
+}
