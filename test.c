@@ -6,6 +6,8 @@
 
 #include "Tests/Suite_add.c"
 #include "Tests/Suite_Compare.c"
+#include "Tests/Suite_diff.c"
+
 
 int main()
 {
@@ -47,6 +49,23 @@ int main()
             CU_cleanup_registry();
             return CU_get_error();
         }
+
+    pSuite = CU_add_suite("Suite_diff", NULL, NULL);
+    if(NULL == pSuite)
+    {
+      CU_cleanup_registry();
+      return CU_get_error();
+    }
+
+   if (NULL == CU_add_test(pSuite, "subtract zeros", suite_diff_test_1) ||
+        NULL == CU_add_test(pSuite, "30 - 35", suite_diff_test_2) ||
+        NULL == CU_add_test(pSuite, "1 - 1999999", suite_diff_test_3) ||
+        NULL == CU_add_test(pSuite, "1999999 - 1999999", suite_diff_test_4)) 
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+
 
    CU_basic_set_mode(CU_BRM_VERBOSE);
    CU_basic_run_tests();
