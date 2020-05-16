@@ -69,7 +69,9 @@ int main(int argc, char const *argv[]) {
 		}
 		free(result1);
 	}
+
 #if 0
+
 	result1 = intal_mod(a[3], a[4]);
 	if(!result1) {
 		printf("Test intal_mod FAILED.\n");
@@ -118,6 +120,8 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
+#endif
+
 	result1 = intal_pow("10", 999);
 	if(!result1) {
 		printf("Test intal_pow FAILED.\n");
@@ -142,6 +146,7 @@ int main(int argc, char const *argv[]) {
 		free(result1);
 	}
 
+#if 0
 	result1 = intal_gcd(a[0], a[5]);
 	if(!result1) {
 		printf("Test intal_gcd FAILED.\n");

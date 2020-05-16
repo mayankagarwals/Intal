@@ -273,3 +273,30 @@ char* intal_multiply(char* intal1, char* intal2)
     reverse_string(res);
     return res;
 }
+
+char* intal_pow(char* intal1, unsigned int n)
+{
+    //we need copies to work with
+    char* num1 = (char*)malloc((strlen(intal1) + 1)* sizeof(char));
+    strcpy(num1, intal1);
+
+    char* res = (char*)malloc(2*sizeof(char));
+    res[0] = '1';
+    res[1] = '\0';
+
+    while(n)
+    {
+        if(n % 2)
+        {
+            char* prev = res;
+            res = intal_multiply(res, num1);
+            free(prev);
+        }
+        char* prev = num1;
+        num1 = intal_multiply(num1, num1);
+        free(prev);
+        n/=2;
+    }
+    free(num1);
+    return res;
+}
