@@ -33,7 +33,7 @@ static void swap_strings(char** s1, char** s2)
 }
 
 
-char* intal_add(char* intal1, char* intal2)
+char* intal_add(const char* intal1, const char* intal2)
 {
     //we need copies to work with as the input can be a literal too which
     // is unmodifiable
@@ -111,7 +111,7 @@ char* intal_add(char* intal1, char* intal2)
 
 
 
-int intal_compare(char* intal1, char* intal2)
+int intal_compare(const char* intal1, const char* intal2)
 {
 /*
 First, compare the length of both strings. If there is a difference,
@@ -143,7 +143,7 @@ equal
 }
 
 
-char* intal_diff(char* intal1, char* intal2)
+char* intal_diff(const char* intal1, const char* intal2)
 {
 /*
     The required result is abs(intal1 - intal2). First make sure
@@ -221,7 +221,7 @@ char* intal_diff(char* intal1, char* intal2)
     
 }
 
-char* intal_multiply(char* intal1, char* intal2)
+char* intal_multiply(const char* intal1, const char* intal2)
 {
 
 /*
@@ -280,7 +280,7 @@ char* intal_multiply(char* intal1, char* intal2)
     return res;
 }
 
-static char* intal_div(char* intal1, char* intal2)
+static char* intal_div(const char* intal1, const char* intal2)
 {
 
     if(0 == strcmp(intal2, "0"))    //division by zero
@@ -361,7 +361,7 @@ static char* intal_div(char* intal1, char* intal2)
 
 }
 
-char* intal_mod(char* intal1, char* intal2)
+char* intal_mod(const char* intal1, const char* intal2)
 {
     char* quotient = intal_div(intal1, intal2);
     char* prod = intal_multiply(quotient , intal2);
@@ -372,7 +372,7 @@ char* intal_mod(char* intal1, char* intal2)
 }
 
 
-char* intal_pow(char* intal1, unsigned int n)
+char* intal_pow(const char* intal1, unsigned int n)
 {
     //we need copies to work with
     char* num1 = (char*)malloc((strlen(intal1) + 1)* sizeof(char));
@@ -399,7 +399,7 @@ char* intal_pow(char* intal1, unsigned int n)
     return res;
 }
 
-char* intal_gcd(char* intal1, char* intal2)
+char* intal_gcd(const char* intal1, const char* intal2)
 {
     //we need copies to work with
     char* num1 = (char*)malloc((strlen(intal1) + 1)* sizeof(char));
@@ -533,7 +533,7 @@ int intal_min(char **arr, int n)
 // Returns the offset of the first occurrence of the key intal in the array.
 // Returns -1 if the key is not found.
 // 1 <= n <= 1000
-int intal_search(char **arr, int n, char* key)
+int intal_search(char **arr, int n, const char* key)
 {
     for(int i = 0; i < n; ++i)
     {
@@ -549,7 +549,7 @@ int intal_search(char **arr, int n, char* key)
 // The array is sorted in nondecreasing order.
 // 1 <= n <= 1000
 // The implementation should be a O(log n) algorithm.
-int intal_binsearch(char **arr, int n, char* key)
+int intal_binsearch(char **arr, int n,const  char* key)
 {
     //binary search of the form FFFFTTTT. 
     int low = 0, high = n-1;
@@ -629,5 +629,53 @@ char* intal_bincoeff(unsigned int n, unsigned int k)
         free(dp[i]);
 
     return dp[k];
+
+}
+
+
+char* coin_row_problem(char **arr, int n)
+{
+    //we dont want to return a pointer of array passed, as
+    //user doesnt need his array change
+    char* a, *b, *c, *sum;
+
+    a = (char*)malloc(2*sizeof(char));
+    a[0] = '0';
+    a[1] = '\0';
+    if(n == 0)
+        return a;
+
+    b = (char*)malloc((strlen(arr[0]) + 1)*sizeof(char));
+    strcpy(b, arr[0]);
+
+    if(n == 1)
+    {
+        free(a);
+        return b;
+    }
+
+    for(int i = 2; i <= n; ++i)
+    {
+        sum = (char*)malloc((max(strlen(arr[i-1]), strlen(a)) + 1 + 1)*sizeof(char));
+        sum = intal_add(arr[i-1], a);
+        if(intal_compare(b, sum) == 1)
+        {
+            c = (char*)malloc((strlen(b) + 1)*sizeof(char));
+            strcpy(c, b);
+        }
+        else
+        {
+            c = (char*)malloc((strlen(sum) + 1)*sizeof(char));
+            strcpy(c, sum);
+        }
+
+        free(sum);
+        free(a);
+        a = b;
+        b = c;
+    }
+    free(a);
+    return c;
+
 
 }

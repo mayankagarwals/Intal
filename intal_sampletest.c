@@ -265,7 +265,7 @@ int main(int argc, char const *argv[]) {
 		printf("Test intal_binsearch and probably intal_sort FAILED.\nYour answer: %d\nExpected answer: %d\n", index1, 1);
 	}
 
-	#if 0
+
 	result1 = coin_row_problem(a+1, 2);
 	if(0 == strcmp("12", result1)) {
 		printf("Test coin_row_problem PASSED\n");
@@ -273,6 +273,5 @@ int main(int argc, char const *argv[]) {
 		printf("Test coin_row_problem FAILED.\nYour answer: %s\nExpected answer: %s\n", result1, "12");
 	}
 
-	return 0;
-	#endif
+
 }
