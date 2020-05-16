@@ -8,6 +8,7 @@
 #include "Tests/Suite_Compare.c"
 #include "Tests/Suite_diff.c"
 #include "Tests/Suite_multiply.c"
+#include "Tests/Suite_pow.c"
 
 int main()
 {
@@ -77,6 +78,22 @@ int main()
         NULL == CU_add_test(pSuite, "9999 * 9999", suite_multiply_test_2) ||
         NULL == CU_add_test(pSuite, "9999 * 0", suite_multiply_test_3) ||
         NULL == CU_add_test(pSuite, "0 * 9999", suite_multiply_test_4)) 
+        {
+            CU_cleanup_registry();
+            return CU_get_error();
+        }
+
+    pSuite = CU_add_suite("Suite_pow", NULL, NULL);
+    if(NULL == pSuite)
+    {
+      CU_cleanup_registry();
+      return CU_get_error();
+    }
+
+   if (NULL == CU_add_test(pSuite, "0 ^ 100", suite_pow_test_1) ||
+        NULL == CU_add_test(pSuite, "100 ^ 0", suite_pow_test_2) ||
+        NULL == CU_add_test(pSuite, "4 ^ 8", suite_pow_test_3) ||
+        NULL == CU_add_test(pSuite, "2342 ^ 2324", suite_pow_test_4)) 
         {
             CU_cleanup_registry();
             return CU_get_error();
