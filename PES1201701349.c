@@ -449,3 +449,51 @@ char* intal_fibonacci(unsigned int n)
     return c;
 
 }
+
+static char* convert_to_string(unsigned int val)
+{
+    int number_of_digits = 0;
+    int n = val;
+    while(val)
+    {
+        ++number_of_digits;
+        val /= 10;
+    }
+    char* res = (char*)malloc((number_of_digits + 1)*sizeof(char));
+    //+1 for null character
+    int i = number_of_digits - 1;
+    while(n)
+    {
+        res[i] = n%10 + '0';
+        n/= 10;
+        --i;
+    }
+    res[number_of_digits] = '\0';
+    return res;
+}
+
+
+
+
+char* intal_factorial(unsigned int n)
+{
+
+    char* one = (char*)malloc(2*sizeof(char));
+    one[0] = '1';
+    one[1] = '\0';
+
+    if(n == 0)
+        return one;
+
+    char* res = one;
+    char* ans, *string_i;
+    for(unsigned int i = 1; i <= n; ++i)
+    {
+        string_i = convert_to_string(i);
+        ans = intal_multiply(string_i, res);
+        free(string_i);
+        free(res);
+        res = ans;
+    }
+    return res;
+}
