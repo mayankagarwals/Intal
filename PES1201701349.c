@@ -354,7 +354,7 @@ static char* intal_div(const char* intal1, const char* intal2)
         
 
     }
-
+    free(temp);
     res[res_index] = '\0';
     return res;
 }
@@ -412,7 +412,7 @@ char* intal_gcd(const char* intal1, const char* intal2)
     while(1)
     {
         if(0 == strcmp(num1, "0"))
-            return num2;
+            break;
         char* prev = num1;
         num1 = intal_mod(num2, num1);
         free(num2);
@@ -420,7 +420,7 @@ char* intal_gcd(const char* intal1, const char* intal2)
     }
 
     free(num1);
-    free(num2);
+    return num2;
 
 }
 
