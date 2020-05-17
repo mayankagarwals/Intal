@@ -357,8 +357,6 @@ static char* intal_div(const char* intal1, const char* intal2)
 
     res[res_index] = '\0';
     return res;
-
-
 }
 
 char* intal_mod(const char* intal1, const char* intal2)
@@ -418,10 +416,11 @@ char* intal_gcd(const char* intal1, const char* intal2)
         char* prev = num1;
         num1 = intal_mod(num2, num1);
         free(num2);
-        num2 = prev;
-        
-        
+        num2 = prev; 
     }
+
+    free(num1);
+    free(num2);
 
 }
 
@@ -627,8 +626,10 @@ char* intal_bincoeff(unsigned int n, unsigned int k)
 
     for(int i = 0; i < k; ++i)
         free(dp[i]);
+    char* res = dp[k];
+    free(dp);
 
-    return dp[k];
+    return res;
 
 }
 
