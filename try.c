@@ -39,8 +39,9 @@ int main()
 		scanf("%lli", &b);
 		char* a_ = convert_to_string(a);
 		char* b_ = convert_to_string(b);
-		char* res = intal_gcd(a_, b_);
+		char* res = intal_pow(a_, b_);
 		free(res);
+		// intal_compare(a_,b_);
 		free(a_);
 		free(b_);
 		sleep(0.1);
