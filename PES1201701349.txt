@@ -1,0 +1,95 @@
+1. Introduction:
+
+ a. 
+  i. Intal is a nonnegative integer of arbitrary length (not more than 1000 decimal digits). It allows to have big integers.
+  ii. It is different from integer in various ways. Primarily, it's complexity bounds are defined in terms of length of 
+      integer and not O(1). It allows extension beyond the fixed size of primitive data types
+  iii. Intal has applications wherever big integer is required. A language like python could use this as its underlying 
+       integer data type so that user doesn't have to worry about overflow errors
+
+
+2. Approach
+
+	i. intal_add:
+		a. Make copies of inputs as we do not want to change array. 
+		b. Reverse both inputs
+		c. calculate the result using school-method. calculate sum and carry for each iteration
+		d. Reverse result and free allocated memory
+		e. return result
+
+	ii. intal_compare:
+		a. check size of inputs. if size of one is more, return that input
+		b. If equal, start iterating from most significant digit. If there is a difference, return the one possessing lower digit
+		c. If you have iterated through whole string, return 0 as they have to be equal
+
+	iii. intal_diff:
+    	a. First make sure intal1 > intal2 using the previously written intal_compare. Swap if not. This is done to avoid negative result. 
+    	b. Reverse the strings and start subtracting. Carry forward if difference becomes negative. 
+    	c. Remove preceeding zeros at the end and free allocated memory
+
+    iv. intal_multiply:
+		a. For every digit from right to left in intal1, multiply with intal2. Sum all these to find end answer
+    	b. To save space, we do cumulative sum, that is for every iteration sum with answer. S
+    	c. Store in reverse manner to avoid waste of space if product is smaller.
+
+    v. intal_mod:
+    	a. Use the written intal_div function to find quotient
+    	b. intal_div can be implemented in the same way it is done on paper. find a multiple of intal2 just lower than prefix of intal1. 
+    	Subtract. Move the window. Continue till exhaustion of intal1
+    	c. Subtract quotient*intal2 from intal1 to return mod
+
+    vi. intal_pow:
+    	a. Use divide and conquer method
+    	b. if n is odd, reutrn x*pow(n/2)*pow(n/2)
+    	c. if n is even, return pow(n/2)*pow(n/2)
+    	d. Provided implementation is an interative version of the same
+
+    vii. intal_gcd:
+    	a. Use the previously developed mod and use euclid algorithm to calculate gcd
+    	b. Make sure the base case of (0,k) and (k,0) is handled
+
+    viii. intal_fibonacci:
+    	a. use intal_add
+    	b. make sure to free the allocated memory
+
+    ix. intal_factorial:
+    	a. use convert_to_string method to convert given integer to string
+    	b. use intal_multiply
+
+    x. intal_bincoeff:
+    	a. check if k is lesser or n-k, exchange whiever is lesser as second argument
+    	b. use a dp table of size k and the recurrence c(n,k) = c(n-1, k) + c(n-1, k-1)
+
+    xi. intal_max:
+    	a. initialize as first element and traverse. 
+    	b. Update if better element seen
+
+    xii. intal_min:
+    	a. initialize as first element and traverse. 
+    	b. Update if better element seen
+
+    xiii. intal_search
+    	a. Traverse and check for each element using intal_compare. 
+    	b. If found return 1, else zero
+
+    xiv. intal_binsearch
+    	a. binary search of the form FFFFTTTT. 
+    	b. at the end you get lower bound, check if lower bound is key
+    	c. if not key return false else true
+
+    xv. intal_sort
+    	a. use compare function and implement quicksort
+    	b. swap only poniters
+
+    xvi. coin_row_problem
+    	a. a = 0, b = arr[0]
+    	b. Handle base cases
+    	c. For each element c is the max(a, arr[i] + b). update a and b
+    	d. Free allocated space
+
+    
+3. Future Work:
+
+	a. Possible extension could be division, matrix operations, and any data structure which requires integers
+	b. The library should be one stop for any integer related operation. From simple multiplication to PCA,
+	  it should be able to handle everything. For a given algorithm, user can also pass parameters for different implementations.

@@ -406,9 +406,15 @@ char* intal_gcd(const char* intal1, const char* intal2)
     strcpy(num2, intal2);    
 
     if(0 == strcmp(num1, "0"))
+    {
+        free(num1);
         return num2;
+    }
     if(0 == strcmp(num2, "0"))
+    {
+        free(num2);
         return num1;
+    }
     while(1)
     {
         if(0 == strcmp(num1, "0"))
@@ -457,6 +463,13 @@ char* intal_fibonacci(unsigned int n)
 
 static char* convert_to_string(unsigned int val)
 {
+    if(val == 0)
+    {
+        char* zero = (char*)malloc(2*sizeof(char));
+        zero[0] = '0';
+        zero[1] = '\0';
+        return zero;   
+    }
     int number_of_digits = 0;
     int n = val;
     while(val)
@@ -501,6 +514,40 @@ char* intal_factorial(unsigned int n)
         res = ans;
     }
     return res;
+}
+
+
+char* intal_bincoeff(unsigned int n, unsigned int k)
+{
+    k = ((n-k) < k)?(n-k):k;
+
+	char **dp = (char**) malloc((k+1) * sizeof(char*));
+    //assign all to zero
+	for(int i = 0; i <= k; i++) 
+    {
+		dp[i] = (char*) malloc(1001 * sizeof(char));
+        dp[i][0] = '0';
+        dp[i][1] = '\0';
+	}
+	dp[0][0] = '1';
+
+    for(int i = 1; i <= n; ++i)
+    {
+        for(int j = min(i, k); j > 0; --j)
+        {
+            char* prev = dp[j];
+            dp[j] = intal_add(dp[j], dp[j-1]);
+            free(prev);
+        }
+    }
+
+    for(int i = 0; i < k; ++i)
+        free(dp[i]);
+    char* res = dp[k];
+    free(dp);
+
+    return res;
+
 }
 
 int intal_max(char **arr, int n)
@@ -600,38 +647,6 @@ void intal_sort(char **arr, int n)
     intal_sort_util(arr, 0, n-1);
 }
 
-char* intal_bincoeff(unsigned int n, unsigned int k)
-{
-    k = ((n-k) < k)?(n-k):k;
-
-	char **dp = (char**) malloc((k+1) * sizeof(char*));
-    //assign all to zero
-	for(int i = 0; i <= k; i++) 
-    {
-		dp[i] = (char*) malloc(1001 * sizeof(char));
-        dp[i][0] = '0';
-        dp[i][1] = '\0';
-	}
-	dp[0][0] = '1';
-
-    for(int i = 1; i <= n; ++i)
-    {
-        for(int j = min(i, k); j > 0; --j)
-        {
-            char* prev = dp[j];
-            dp[j] = intal_add(dp[j], dp[j-1]);
-            free(prev);
-        }
-    }
-
-    for(int i = 0; i < k; ++i)
-        free(dp[i]);
-    char* res = dp[k];
-    free(dp);
-
-    return res;
-
-}
 
 
 char* coin_row_problem(char **arr, int n)
@@ -657,7 +672,6 @@ char* coin_row_problem(char **arr, int n)
 
     for(int i = 2; i <= n; ++i)
     {
-        sum = (char*)malloc((max(strlen(arr[i-1]), strlen(a)) + 1 + 1)*sizeof(char));
         sum = intal_add(arr[i-1], a);
         if(intal_compare(b, sum) == 1)
         {
